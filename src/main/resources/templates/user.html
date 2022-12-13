@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <script></script>
+</head>
+<body>
+<nav class="navbar navbar-collapse navbar-dark bg-dark">
+    <span style="color: white; font-size: 20px">
+    <b class="navbar-text" th:text="${user.email}" style="color: white;"></b>
+    <span class="navbar-text" style="color: white;"> with roles: </span>
+    <span th:each="r : ${user.getRoles()}">
+        <span class="navbar-text" th:text="${r.toString()}" style="color: white;">
+        </span>
+    </span>
+    </span>
+    <a class="nav-link" th:href="@{/logout}" align="right" style="color: lightgray; font-size: 18px">Logout</a>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <form th:method="GET" th:action="@{/admin}">
+            <button sec:authorize="hasRole('ROLE_ADMIN')" type="submit" class="btn btn-lg btn-link"
+                    style="width: 110%; margin-left: -15px; margin-top: 20px; text-align: left">
+                Admin
+            </button>
+            </form>
+            <form>
+                <button type="button" class="btn disabled btn-primary btn-lg"
+                        style="width: 110%; margin-left: -15px; text-align: left">
+                    User
+                </button>
+            </form>
+        </div>
+        <div class="col-md-10" style="background-color: whitesmoke">
+            <h1 class="mx-center mt-3">User information-page</h1>
+            <div class="tabbable mx-r50" id="tabs-232024">
+                <div class="tab-content">
+                    <span style=" line-height: 50px; font-size: 22px; font-weight: 500; margin-left: 15px;">
+                            About user
+                        </span>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:object="${user}">
+                            <td><p th:text="${user.id}"></p></td>
+                            <td><p th:text="${user.username}"></p></td>
+                            <td><p th:text="${user.email}"></p></td>
+                            <td><span th:each="r : ${user.getRoles()}" th:text="${r.toString() + ' '}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>User table</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>User:</h2>-->
+<!--<div>Username:</div>-->
+<!--<div th:text="${user.username}"></div>-->
+<!--<br>-->
+<!--<div>Email:</div>-->
+<!--<div th:text="${user.email}"></div>-->
+<!--<br>-->
+<!--<div>Password:</div>-->
+<!--<div style="-webkit-text-security: disc" th:text="password"></div>-->
+<!--<span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
+<!--<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}">-->
+<!--    <input type="submit" value="Delete">-->
+<!--</form>-->
+<!--<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="GET" th:action="@{/admin/{id}/edit(id=${user.id})}">-->
+<!--    <input type="submit" value="Edit">-->
+<!--</form>-->
+<!--<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="GET" th:action="@{/admin}">-->
+<!--    <input type="submit" value="Main menu">-->
+<!--</form>-->
+<!--<form th:method="GET" th:action="@{/logout}">-->
+<!--    <input type="submit" value="Logout">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
